@@ -1,0 +1,12 @@
+{% extends "main.html" %}
+    {% block content %}
+
+    <h1>Registeration  </h1>
+
+    <div class= 'content-section'>
+    <form method='POST' action="/register">
+    {{ form.hidden.tag()}}
+    </form>
+    
+    </div>
+    {% endblock  content%}
