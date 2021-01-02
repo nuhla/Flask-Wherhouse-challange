@@ -25,4 +25,9 @@ class LoginForm(Form):
     ])
     remember = BooleanField('Remember Me')
     Submit =SubmitField('login')
+    
+class LocationsForm(Form):
+    location_id =StringField('location',  [validators.Length(min=4, max=25)])
+    Submit =SubmitField('add')
+                                           
  

@@ -1,5 +1,5 @@
 from flask import Flask, render_template, make_response
-from Forms import RegistrationForm , LoginForm
+from Forms import  LocationsForm
 from flask import request
 from flask import Flask, redirect, url_for, request
 from firebase import Firebase
@@ -30,7 +30,6 @@ app.config['SECRET_KEY']='9fd51d0c027fb09ad5a12825b68b4457'
 @app.route('/')
 def Home():
     db=firebase.database()
-    
     # print(db.child("locations"), "my datasroe")
     # db.child("ProductMovement").push({"timestamp":"Nov 13 2020", "from_location":"nabluse", "to_location":"","product_id":"table", "qyt":165 })
     # data2= db.child("locations").get()
@@ -52,28 +51,50 @@ def hello_world():
 
    
    
-@app.route('/Register',methods = ['POST', 'GET'])
-def Register():
-    form= RegistrationForm()
-    return render_template('register.html', title="Register", form=form )
-    pass
+# @app.route('/Register',methods = ['POST', 'GET'])
+# def Register():
+#     form= RegistrationForm()
+#     return render_template('register.html', title="Register", form=form )
+#     pass
 
-@app.route('/Login',methods = ['POST', 'GET'])
-def LogIn():
-    form= LoginForm()
-    return render_template('login.html', title="LogIn", form=form )
-    pass
+# @app.route('/Login',methods = ['POST', 'GET'])
+# def LogIn():
+#     form= LoginForm()
+#     return render_template('login.html', title="LogIn", form=form )
+#     pass
 
-
+#  ---------------------- Define Our rout of Movment Report -----------------------#
 @app.route('/Reports',methods = ['POST', 'GET'])
 def PDF_Template():
-    render = render_template('pdfReport.html')
+    # ------------ get all documnts from firebase realtime database ---------------#
+    data =  db.child("ProductMovement").get()
+    valuesList=[]
+    #  ------------------- convert data tuples into a list of dict ----------------#
+    for item in data.each() :
+        value=db.child("ProductMovement").child(item.key()).get()
+        valuesList.append(dict(value.val()))
+       
+    # ------------- get our html page gived all data to concerted to html tags -------#
+    render = render_template('pdfReport.html', data=valuesList)
+    # --------- create a string out of our final html page then convert ot to pdf -----#
     pdf = pdfkit.from_string(render, False)
+    #------ create our response and response header to viwe the report in the page ----#
     response = make_response(pdf)
     response.headers['Content-Type']='application/pdf'
     response.headers['Content-Disposition']='inline; filename=output.pdf'
-    
+    # ---------------------- send response back to the window --------------------------#
     return response
+
+
+#  ---------------------- Locations View Add and Edit -----------------------#
+@app.route('/Locations',methods = ['POST', 'GET'])
+def Add_Remove_View_Locations():
+    form = LocationsForm(request.form)
+    if request.method =='POST' :
+        location_id = form.location_id.data
+        db.child("Location").push({"location_id:":location_id })
+
+    return render_template("Locations.html", form=form)
     
 
 if __name__ == '__main__':

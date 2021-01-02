@@ -3,6 +3,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+
+
+p {
+  color: maroon;
+  margin-left: 40px;
+  font-size: 22px;
+}
+</style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,17 +26,18 @@
 <body>
   
     <main role="main" class="container">
+    <h1> Wherhouse Movment Report</h1>
+    </br>   </br>
       <div class="row">
-        <div class="col-md-8">
-          {% block content %}{% endblock %}
-        </div>
-        <div class="col-md-4">
-          <div class="content-section">
-            <h3>Our Sidebar</h3>
-           
+      
+        <div class="col">
          
-          </div>
+          {% for item in data%}
+          <h4> Date : {{ item.timestamp }}</h4>
+           <p class="report_data"> Moved {{ item.qyt}} {{ item.product_id}}'s from : {{ item.from_location }} to : {{ item.to_location }}  </p>
+          {% endfor %} 
         </div>
+       
       </div>
     </main>
 
