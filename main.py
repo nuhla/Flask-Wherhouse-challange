@@ -153,6 +153,7 @@ def update_Remove_View_Product(ID):
         product_id = form.product_id.data
         print(request.data, "dddddddddddddddd")
         db.child("Product").child(ID).update({"product_id":product_id})
+        return redirect(request.referrer)
 
     return render_template("UpdatProduct.html", form=form , item={'product_id':ID})
 
