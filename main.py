@@ -99,10 +99,12 @@ def Add_Remove_View_Locations():
         print(valuesList)
         
     form = LocationsForm(request.form)
-    if request.method =='POST' :
+    if request.method =='POST' and form.validate():
         location_id = form.location_id.data
         print(location_id, "location_id")
         db.child("Location").push({"location_id":location_id })
+        return redirect(request.referrer)
+
 
     return render_template("Locations.html", data=valuesList,form=form)
     

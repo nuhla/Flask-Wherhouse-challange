@@ -5,12 +5,12 @@
     <h3> List Of Registred Locations</h3>
         <ul>
             {% for item in data%}
-                <li><div class="row"><div class="col-4"> {{item.location_id}} </div> <div class="col-8"><button type="button" class="btn btn-success">Update</button></div> </div></li>
+                <li><div class="row"><div class="col-4"> {{item.Product_id}} </div> <div class="col-8"><button type="button" class="btn btn-success">Update</button></div> </div></li>
             {% endfor %}
         </ul>
     <form action = "http://localhost:5000/Locations" method = "post">
         <div class="form-group">
-            {{ form.location_id(class ="form-control")}}
+            {{ form.Product_id(class ="form-control")}}
         </div>
         <div class="form-group">
             {{ form.Submit(class ="form-control")}}
