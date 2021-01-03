@@ -89,12 +89,22 @@ def PDF_Template():
 #  ---------------------- Locations View Add and Edit -----------------------#
 @app.route('/Locations',methods = ['POST', 'GET'])
 def Add_Remove_View_Locations():
+     # ------------ get all documnts from firebase realtime database ---------------#
+    data =  db.child("Location").get()
+    valuesList=[]
+    #  ------------------- convert data tuples into a list of dict ----------------#
+    for item in data.each() :
+        value=db.child("Location").child(item.key()).get()
+        valuesList.append(dict(value.val()))
+        print(valuesList)
+        
     form = LocationsForm(request.form)
     if request.method =='POST' :
         location_id = form.location_id.data
-        db.child("Location").push({"location_id:":location_id })
+        print(location_id, "location_id")
+        db.child("Location").push({"location_id":location_id })
 
-    return render_template("Locations.html", form=form)
+    return render_template("Locations.html", data=valuesList,form=form)
     
 
 if __name__ == '__main__':
