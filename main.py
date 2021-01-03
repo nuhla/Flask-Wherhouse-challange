@@ -95,8 +95,15 @@ def Add_Remove_View_Locations():
     #  ------------------- convert data tuples into a list of dict ----------------#
     for item in data.each() :
         value=db.child("Location").child(item.key()).get()
-        valuesList.append(dict(value.val()))
-        print(valuesList)
+        print(value.val())
+        val=('key',str(item.key()))
+        
+     
+        var = dict(value.val())
+        var['key']=str(item.key())
+        valuesList.append(var)
+       
+        # print(valuesList)
         
     form = LocationsForm(request.form)
     if request.method =='POST' and form.validate():
@@ -107,7 +114,34 @@ def Add_Remove_View_Locations():
 
 
     return render_template("Locations.html", data=valuesList,form=form)
-    
+
+
+# #  ---------------------- Locations View Add and Edit -----------------------#
+# @app.route('/Product',methods = ['POST', 'GET'])
+# def Add_Remove_View_Product():
+#      # ------------ get all documnts from firebase realtime database ---------------#
+#     data =  db.child("Product").get()
+#     valuesList=[]
+#     #  ------------------- convert data tuples into a list of dict ----------------#
+#     for item in data.each() :
+#         value=db.child("Product").child(item.key()).get()
+#         value+= ('key', item.key(),)
+#         valuesList.append(dict(value.val(),))
+#         print(valuesList)
+        #   var = dict(value.val())
+        #   var['key']=str(item.key())
+        #   valuesList.append(var)
+        
+#     form = LocationsForm(request.form)
+#     if request.method =='POST' and form.validate():
+#         location_id = form.location_id.data
+#         print(location_id, "location_id")
+#         db.child("Location").push({"location_id":location_id })
+#         return redirect(request.referrer)
+
+
+#     return render_template("Locations.html", data=valuesList,form=form)
+ 
 
 if __name__ == '__main__':
    app.run(debug = True)

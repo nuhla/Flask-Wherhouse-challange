@@ -30,7 +30,7 @@ class LocationsForm(Form):
     location_id =StringField('location',  [validators.Length(min=4, max=25)])
     Submit =SubmitField('add')
     
-class LocationsForm(Form):
+class ProductForm(Form):
     Product_id =StringField('Product',  [validators.Length(min=4, max=25)])
     Submit =SubmitField('add')
                                            
