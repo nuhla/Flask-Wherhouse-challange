@@ -5,7 +5,7 @@
     <h3> List Of Registred Locations</h3>
         <ul>
             {% for item in data%}
-                <li><div class="row"><div class="col-4"> {{item.location_id}} </div> <div class="col-8"><button type="button" class="btn btn-success">Update</button></div> </div></li>
+                <li><div class="row"><div class="col-4"> {{item.location_id}} </div> <div class="col-8"><a href="#">Update</a></div> </div></li>
             {% endfor %}
         </ul>
     <form action = "http://localhost:5000/Locations" method = "post">
