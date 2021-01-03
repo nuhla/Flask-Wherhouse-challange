@@ -1,0 +1,16 @@
+  
+{% extends "main.html" %}
+{% block content %}
+    
+    <div>  
+    <form action = {{"http://localhost:5000/UpdateProduct/"+item.product_id +"/"}} method = "post">
+        <div class="form-group">
+         
+             {{ form.product_id(class ="form-control")}}
+        </div>
+        <div class="form-group">
+            {{ form.Submit(class ="form-control")}}
+        </div>
+    </form></div>
+  
+{% endblock content %}

@@ -33,5 +33,9 @@ class LocationsForm(Form):
 class ProductForm(Form):
     product_id =StringField('Product',  [validators.Length(min=4, max=25)])
     Submit =SubmitField('add')
+    
+class UpdateProductForm(Form):
+    product_id =StringField('Product',  [validators.Length(min=4, max=25)])
+    Submit =SubmitField('Update')
                                            
  

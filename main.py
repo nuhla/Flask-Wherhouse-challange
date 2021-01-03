@@ -1,5 +1,5 @@
 from flask import Flask, render_template, make_response
-from Forms import  LocationsForm,ProductForm
+from Forms import  LocationsForm,ProductForm,UpdateProductForm
 from flask import request
 from flask import Flask, redirect, url_for, request
 from firebase import Firebase
@@ -118,7 +118,7 @@ def Add_Remove_View_Locations():
 
 #  ---------------------- Locations View Add and Edit -----------------------#
 @app.route('/Product',methods = ['POST', 'GET'])
-def Add_Remove_View_Product():
+def Add_View_Product():
      # ------------ get all documnts from firebase realtime database ---------------#
     data =  db.child("Product").get()
     valuesList=[]
@@ -126,14 +126,14 @@ def Add_Remove_View_Product():
     #  ------------------- convert data tuples into a list of dict ----------------#
     for item in data.each() :
         value=db.child("Product").child(item.key()).get()
-        print(value.val())
+        # print(value.val())
         val=('key',str(item.key()))
         
      
         var = dict(value.val())
         var['key']=str(item.key())
         valuesList.append(var)
-       
+        print(valuesList)
         
     form = ProductForm(request.form)
     if request.method =='POST' and form.validate():
@@ -144,7 +144,17 @@ def Add_Remove_View_Product():
 
 
     return render_template("Product.html", data=valuesList,form=form)
- 
+
+#  ---------------------- Locations View Add and Edit -----------------------#
+@app.route('/UpdateProduct/<ID>/',methods = ['POST', 'GET'])
+def update_Remove_View_Product(ID):
+    form = UpdateProductForm(request.form)
+    if request.method =='POST':
+        product_id = form.product_id.data
+        print(request.data, "dddddddddddddddd")
+        db.child("Product").child(ID).update({"product_id":product_id})
+
+    return render_template("UpdatProduct.html", form=form , item={'product_id':ID})
 
 if __name__ == '__main__':
    app.run(debug = True)

@@ -5,7 +5,7 @@
     <h3> List Of Registred Products</h3>
         <ul>
             {% for item in data%}
-                <li><div class="row"><div class="col-4"> {{item.product_id}} </div> <div class="col-8"><a href="#">Update</a></div> </div></li>
+                <li><div class="row"><div class="col-4"> {{item.product_id}} </div> <div class="col-8"><a href={{"/UpdateProduct/"+item.key +"/"}}>Update</a></div> </div></li>
             {% endfor %}
         </ul>
     <form action = "http://localhost:5000/Product" method = "post">
