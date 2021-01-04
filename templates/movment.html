@@ -1,0 +1,108 @@
+   
+{% extends "main.html" %}
+
+    {% block content %}
+    <h3> List Of Registred Locations</h3>
+        <ul>
+            {% for item in data%}
+                <li>
+                <div class="row" style="padding:7px">
+                <p > moved from {{item.from_location}} - </p>
+                <p >  to {{item.to_location}} -</p>
+                <p > {{item.product_id}} 's -</p>
+                <p > {{item.qyt}} -</p>
+                <p >at : {{item.timestamp}}- </p>
+                 </li>
+            {% endfor %}
+        </ul>
+    <form action = "http://localhost:5000/Locations" method = "post">
+     <div class="form-group">
+            {{ form.from_location(class ="form-control")}}
+            
+        </div>
+        <div class="form-group">
+            {{ form.to_location(class ="form-control")}}
+        </div>
+        <div hidden id="locationError" style=" color:'red'; padding:5px; "> location Error</div>
+         <div class="form-group">
+            {{ form.product_id(class ="form-control")}}
+        </div>
+        <div class="form-group">
+            {{ form.timestamp(class ="form-control")}}
+            <div hidden id="TimeError" style=" color:'red'; padding:5px; "> You Need to set A Time</div>
+        </div>
+          <div class="form-group">
+            {{ form.qyt(class ="form-control")}}
+             <div hidden id="QuantityError" style=" color:'red'; padding:5px; "> You Need to set A Quantity</div>
+        </div>
+        <div class="form-group">
+        <input type="button" value="Send Request" onclick="myFunction(this)" >
+         </div>
+    </form>
+  <script>
+function  myFunction(elmnt) {
+    //-------------------- get all the document elements ---------------------//
+    let selected_from_location = document.getElementById('from_location')
+    let selected_to_location = document.getElementById('to_location')
+    let selected_product_id = document.getElementById('product_id')
+    let selected_timestamp = document.getElementById('timestamp')
+    let selected_qyt = document.getElementById('qyt')
+    let Location_Alert = document.getElementById('locationError')
+    let TimeError = document.getElementById('TimeError')
+    let QuantityError =document.getElementById('QuantityError')
+
+    //-------------------- get all the document select value ---------------------//
+    let selected_from_location_val =selected_from_location.options[selected_from_location.selectedIndex].text
+    let selected_to_location_val =selected_to_location.options[selected_to_location.selectedIndex].text
+    let selected_product_id_val =selected_product_id.options[selected_product_id.selectedIndex].text
+    
+    //-------------------- check if the date is correct ---------------------//
+    if(selected_timestamp.value===""){
+       TimeError.removeAttribute('hidden')
+       return
+    }else{
+       TimeError.setAttribute("hidden", false) 
+    }
+    
+    //-------------------- check if the quantity is set ---------------------/
+    if(selected_qyt.value===""){
+        QuantityError.removeAttribute('hidden')
+    }else{
+       QuantityError.setAttribute("hidden", false) 
+     
+    }
+    //-------------------- check if the from or to location are both not embty ---------------------/
+    if(selected_from_location_val ==='No Locarion'
+     && selected_to_location_val ==='No Locarion' ) {
+    Location_Alert.removeAttribute('hidden')
+    return
+    cin
+    }else{
+       Location_Alert.setAttribute("hidden", false) 
+    }
+
+    //-------------------- final check to see if all the values are set correctly -------/
+   
+
+        state = {from_location:selected_from_location_val,
+         to_location:selected_to_location_val,
+         timestamp:selected_timestamp.value,
+         qyt:selected_qyt.value,
+         product_id:selected_product_id_val
+          }
+    //--------------------- send a fetch request with all data ------------------------------//
+     fetch("http://127.0.0.1:5000/Monements/"
+    ,{method: 'post',body:JSON.stringify( state)}
+    )
+    .then(result=>{
+        console.log("done")})
+    .catch(error=>{
+        console.log("error")
+    })
+    
+
+
+    
+}
+</script>
+    {% endblock content %}
