@@ -125,7 +125,7 @@ def update_Remove_View_Product(ID):
     if request.method =='POST':
         product_id = form.product_id.data
         db.child("Product").child(ID).update({"product_id":product_id})
-        return redirect(request.referrer)
+        return redirect("/Product")
 
     # -------------------- if its a get request we will retuen the page --------------------
     return render_template("UpdatProduct.html", form=form , item={'product_id':ID})
@@ -188,20 +188,13 @@ def update_Remove_View_Locations(ID):
     if request.method =='POST':
         location_id = form.location_id.data
         db.child("Location").child(ID).update({"location_id":location_id})
-        return redirect(request.referrer)
+        return redirect("/Location")
     # -------------------- if its a get request we will retuen the page --------------------
     return render_template("UpdateLocation.html", form=form , item={'location_id':ID})
 
 
 
-# Location=db.child("Location").get()
-# Locationvalue =Location.val()
-# priduvtsArray =[('0', "No Locarion")]
-# for product in Locationvalue:
-#     priduvtsArray.append((product,Locationvalue[product]['location_id']))
 
-# list2=[tup for tup in tups if tup[0] in priduvtsArray ]
-# print(list2,"kkkkkkkkkkkkk")
 
 
 if __name__ == '__main__':

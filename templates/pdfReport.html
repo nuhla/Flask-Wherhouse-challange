@@ -29,16 +29,30 @@ p {
     <h1> Wherhouse Movment Report</h1>
     </br>   </br>
       <div class="row">
-      
-        <div class="col">
+      <table style="width:100%">
+        <caption>Wherhouse Movment Report</caption>
+        <tr>
+          <th>Date</th>
+          <th>Quantity</th>
+          <th>Product</th>
+          <th>From</th>
+          <th>To</th>
+        </tr>
+       
          
           {% for item in data%}
-          <h4> Date : {{ item.timestamp }}</h4>
-           <p class="report_data"> Moved {{ item.qyt}} {{ item.product_id}}'s from : {{ item.from_location }} to : {{ item.to_location }}  </p>
+           <tr>
+             <td> {{ item.timestamp }}</td>
+             <td> {{ item.qyt}}</td>
+             <td>  {{ item.product_id}}</td>
+             <td>  {{ item.from_location}}</td>
+             <td>  {{ item.to_location}}</td>
+            <tr>
           {% endfor %} 
-        </div>
        
-      </div>
+       
+   
+      </table>
     </main>
 
 
