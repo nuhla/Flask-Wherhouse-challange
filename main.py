@@ -8,14 +8,7 @@ import json
 
 
 config = {
-    "apiKey": "AIzaSyC_16qNyYweahPpI08fq5PU4scSTSkmwT4",
-  "authDomain": "challange-nuhla.firebaseapp.com",
-  "databaseURL": "https://challange-nuhla.firebaseio.com",
-  "projectId": "challange-nuhla",
-  "storageBucket": "challange-nuhla.appspot.com",
-  "messagingSenderId": "36855175985",
-  "appId": "1:36855175985:web:e8f30719f027fe2234ee10",
-  "measurementId": "G-PS94E533ME"
+ 
 }
 firebase = Firebase(config)
 db = firebase.database()
