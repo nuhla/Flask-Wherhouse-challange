@@ -188,7 +188,7 @@ def update_Remove_View_Locations(ID):
     if request.method =='POST':
         location_id = form.location_id.data
         db.child("Location").child(ID).update({"location_id":location_id})
-        return redirect("/Location")
+        return redirect("/Locations")
     # -------------------- if its a get request we will retuen the page --------------------
     return render_template("UpdateLocation.html", form=form , item={'location_id':ID})
 
