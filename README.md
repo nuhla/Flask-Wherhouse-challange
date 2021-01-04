@@ -6,7 +6,7 @@ this is a small project for a warehouse which could have different branches and 
  ## Technology used 
  - Flask -(python)
  - HTML , CSS , jinja Templates 
- - Jvascript
+ - Javascript
  - Firebase - RealTime database 
 
 
